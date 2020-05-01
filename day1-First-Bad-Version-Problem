@@ -1,0 +1,28 @@
+public class Solution extends VersionControl {
+    public int firstBadVersion(int n) {
+    
+    //Initially low at first index and high at last index.
+        int low = 1,high = n,mid = 0;
+        
+        //Run the loop till low is less than high(not till low<= high) . It is slightly different from Binary Search standard problem.
+        while(low<high)
+        {
+        
+        //Tricky part : -> if we write mid = (low+high)/2 then there will be "OVERFLOW ERROR" in case of large value of n. So. it is better to find mid as below.
+          mid = low + (high-low)/2;
+            
+             if(isBadVersion(mid))
+            {
+             //if we found mid as bad version then there are chances that its previous version can be bad . So , move high to mid.
+                high = mid;
+            }
+            else
+            {
+             //if we don't found as bad version then we have to search in next part . So , low is ahead of mid.
+                low = mid+1;
+            }
+        }
+        
+        return low;
+    }
+}
